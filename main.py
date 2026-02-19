@@ -12,6 +12,24 @@ def query_df(sql: str, params=None) -> pd.DataFrame:
     with psycopg.connect(DATABASE_URL) as conn:
         return pd.read_sql(sql, conn, params=params)
 
+@app.get("/")
+def root():
+    return {
+        "message": "Employee Performance API is running",
+        "docs": "/docs",
+        "endpoints": [
+            "/health",
+            "/reports/top-employees",
+            "/reports/dept-trend",
+            "/employee/{employee_code}/efficiency"
+        ]
+    }
+
+
+
+
+
+
 
 @app.get("/health")
 def health():
